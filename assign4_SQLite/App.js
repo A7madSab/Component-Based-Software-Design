@@ -12,7 +12,8 @@ const App = () => {
 
   useEffect(() => {
     (async () => {
-      setNames(await AsyncStorage.setItem("Names", JSON.stringify(seedData)))()
+      const namedForSQLDB = await AsyncStorage.setItem("Names", JSON.stringify(seedData))
+      setNames(seedData)
     })
   }, [])
 
@@ -20,17 +21,17 @@ const App = () => {
     setFiltedNames(names.filter(name => _.includes(name, nameInput)))
   }, [nameInput])
 
-  const getNames = async () => setNames(JSON.parse(await AsyncStorage.getItem("Names")))
+  const getNames = async () => {
+    setNames(seedData)
+  }
 
   return (
-    <View style={{ flex: 1, alignItems: "center" }}>
-      <Input label="Search Name" placeholder="Ahmad Sabry" value={nameInput} onChangeText={e => setNameInput(e)} />
-      <Button title="Get Names from DB" onPress={getNames} />
-      <ScrollView style={{ flex: 1 }}>
-        {
-          filtedNames?.map(name => <Text key={name}>{name}</Text>)
-        }
-      </ScrollView>
+    <View style={{ flex: 1, alignItems: "center", backgroundColor: "black" }}>
+      <Input inputStyle={{ color: "white" }} placeholder="Enter name" value={nameInput} onChangeText={e => setNameInput(e)} />
+      <Button buttonStyle={{ backgroundColor: "blue" }} title="fetch db" onPress={getNames} />
+      {
+        filtedNames?.map(name => <Text style={{ color: "white", fontSize: 12 }} key={name}>{name}</Text>)
+      }
     </View>
   )
 }
