@@ -46,7 +46,7 @@ export default function Main({ navigation }) {
   }, [])
 
   useEffect(() => {
-    const filterdNamesWithoutDepartment = employeeNames.filter(employee => _.includes(employee.name, nameInput))
+    const filterdNamesWithoutDepartment = employeeNames.filter(employee => _.includes(employee.name.toLocaleLowerCase(), nameInput.toLocaleLowerCase()))
     const filterdNames = filterdNamesWithoutDepartment.map(employee => ({ ...employee, department: departments[employee.department] }))
 
     setFilteredList(filterdNames)
