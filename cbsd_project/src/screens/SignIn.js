@@ -1,15 +1,23 @@
-import React, { useState } from 'react'
-import { KeyboardAvoidingView } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { KeyboardAvoidingView, AsyncStorage } from 'react-native'
 import { Input, Text, Button } from "react-native-elements"
 import Feather from "react-native-vector-icons/Feather"
 import { primary } from "../utils"
 import { connect } from "react-redux"
-import { signIn } from "../redux/action"
+import { signIn, signInWithCache } from "../redux/action"
 
-const SignIn = ({ auth, error, signIn, navigation }) => {
+const SignIn = ({ refreshToken, error, signIn, signInWithCache, navigation }) => {
     const [signInForm, setSignInForm] = useState({ email: "", password: "", error: "" })
-    if (auth.refreshToken) {
-        navigation.navigate("app")
+
+    useEffect(() => {
+        (async () => {
+            const cacheUser = await AsyncStorage.getItem("user")
+            signInWithCache(cacheUser)
+        })()
+    })
+
+    if (refreshToken) {
+        return navigation.navigate("app")
     }
     return (
         <KeyboardAvoidingView behavior="padding" style={{ marginTop: 35, alignItems: "center" }}>
@@ -20,7 +28,7 @@ const SignIn = ({ auth, error, signIn, navigation }) => {
                 onChangeText={newText => setSignInForm({ ...signInForm, email: newText })}
                 inputStyle={{ paddingLeft: 10 }}
                 containerStyle={{ margin: 10 }}
-                placeholder=' Something@gmail.com'
+                placeholder='Something@gmail.com'
                 autoCompleteType="email"
                 leftIcon={<Feather name="user" size={24} color={primary} />}
             />
@@ -35,7 +43,6 @@ const SignIn = ({ auth, error, signIn, navigation }) => {
                 secureTextEntry={true}
             />
             {error ? <Text>{error}</Text> : null}
-            <Text>{JSON.stringify(auth)}</Text>
             <Button title="Sign In" containerStyle={{ width: "95%", margin: 15 }} onPress={() => signIn(signInForm)} />
         </KeyboardAvoidingView>
     )
@@ -43,10 +50,11 @@ const SignIn = ({ auth, error, signIn, navigation }) => {
 
 const mapStateToProps = ({ auth }) => ({
     error: auth.error,
-    auth: auth
+    refreshToken: auth.refreshToken
 })
 const mapDispatchToProps = dispatch => ({
-    signIn: user => dispatch(signIn(user))
+    signIn: user => dispatch(signIn(user)),
+    signInWithCache: cacheUser => dispatch(signInWithCache(cacheUser))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn)

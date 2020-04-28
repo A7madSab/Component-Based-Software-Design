@@ -1,4 +1,4 @@
-import { USER_SIGN_UP, USER_SIGN_IN, USER_SIGN_OUT, USER_AUTH_ERROR } from "./action"
+import { USER_SIGN_UP, USER_SIGN_IN, USER_SIGN_OUT, USER_AUTH_ERROR, USER_SIGN_IN_WITH_CACHE } from "./action"
 
 const defaultAuth = { userName: "", email: "", error: "" }
 
@@ -12,6 +12,8 @@ export const authReducer = (state = defaultAuth, action) => {
             return { ...state, error: action.payload }
         case USER_SIGN_OUT:
             return defaultAuth
+        case USER_SIGN_IN_WITH_CACHE:
+            return { email: action.payload.email, refreshToken: action.payload.refreshToken }
         default:
             return state
     }

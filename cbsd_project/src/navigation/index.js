@@ -25,14 +25,18 @@ const AuthNav = createBottomTabNavigator({
 })
 
 const AppNav = createBottomTabNavigator({
-    Camera: {
+    Home: {
         screen: Home
     }
+}, {
+    initialRouteName: "Home"
 })
 
 const Navigation = createSwitchNavigator({
     auth: AuthNav,
     app: AppNav
+}, {
+    initialRouteName: "app"
 })
 
 export default createAppContainer(Navigation)
