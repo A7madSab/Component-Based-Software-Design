@@ -3,11 +3,14 @@ import { KeyboardAvoidingView } from 'react-native'
 import { Input, Text, Button } from "react-native-elements"
 import Feather from "react-native-vector-icons/Feather"
 import { primary } from "../utils"
-import {connect} from "react-redux"
-import {signIn} from "../redux/action"
+import { connect } from "react-redux"
+import { signIn } from "../redux/action"
 
-const SignIn = ({auth}) => {
+const SignIn = ({ auth, error, signIn, navigation }) => {
     const [signInForm, setSignInForm] = useState({ email: "", password: "", error: "" })
+    if (auth.refreshToken) {
+        navigation.navigate("app")
+    }
     return (
         <KeyboardAvoidingView behavior="padding" style={{ marginTop: 35, alignItems: "center" }}>
             <Text h2>Sign In</Text>
@@ -30,16 +33,19 @@ const SignIn = ({auth}) => {
                 leftIcon={<Feather name="lock" size={24} color={primary} />}
                 secureTextEntry={true}
             />
-            <Button title="Sign In" containerStyle={{width:"95%", margin:15}} onPress={() => console.log(signInForm)} />
+            {error ? <Text>{error}</Text> : null}
+            <Text>{JSON.stringify(auth)}</Text>
+            <Button title="Sign In" containerStyle={{ width: "95%", margin: 15 }} onPress={() => signIn(signInForm)} />
         </KeyboardAvoidingView>
     )
 }
 
-const mapStateToProps = ({auth}) =>({
-    auth
+const mapStateToProps = ({ auth }) => ({
+    error: auth.error,
+    auth: auth
 })
 const mapDispatchToProps = dispatch => ({
     signIn: user => dispatch(signIn(user))
 })
 
-export default SignIn
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn)

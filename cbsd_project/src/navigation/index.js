@@ -2,9 +2,10 @@ import React from "react"
 import Icon from 'react-native-vector-icons/Feather';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import { createAppContainer, createBottomTabNavigator } from "react-navigation"
+import { createAppContainer, createBottomTabNavigator, createSwitchNavigator } from "react-navigation"
 import SignIn from "../screens/SignIn"
 import SignUp from "../screens/SignUp"
+import Home from "../screens/Home"
 
 const AuthNav = createBottomTabNavigator({
     SignIn: {
@@ -20,8 +21,18 @@ const AuthNav = createBottomTabNavigator({
         })
     }
 }, {
-    initialRouteName: "SignUp"
+    initialRouteName: "SignIn"
 })
 
+const AppNav = createBottomTabNavigator({
+    Camera: {
+        screen: Home
+    }
+})
 
-export default createAppContainer(AuthNav)
+const Navigation = createSwitchNavigator({
+    auth: AuthNav,
+    app: AppNav
+})
+
+export default createAppContainer(Navigation)

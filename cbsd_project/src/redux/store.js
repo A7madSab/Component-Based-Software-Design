@@ -1,5 +1,5 @@
 import { createStore,combineReducers, applyMiddleware } from "redux"
-import logger from "redux-logger"
+// import logger from "redux-logger"
 import reduxThunk from "redux-thunk"
 
 import {authReducer} from "./reducer"
@@ -10,6 +10,6 @@ export default store = createStore(
     }),
     applyMiddleware(
         reduxThunk, 
-        logger
+        // logger
     )
 )
