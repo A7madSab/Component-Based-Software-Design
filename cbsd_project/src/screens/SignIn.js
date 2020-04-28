@@ -21,6 +21,7 @@ const SignIn = ({ auth, error, signIn, navigation }) => {
                 inputStyle={{ paddingLeft: 10 }}
                 containerStyle={{ margin: 10 }}
                 placeholder=' Something@gmail.com'
+                autoCompleteType="email"
                 leftIcon={<Feather name="user" size={24} color={primary} />}
             />
             <Input

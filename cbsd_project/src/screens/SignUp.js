@@ -33,6 +33,7 @@ const SignUp = ({ signUp, error, auth, navigation }) => {
                 inputStyle={{ paddingLeft: 10 }}
                 containerStyle={{ margin: 10 }}
                 placeholder=" Something@gmail.com"
+                autoCompleteType="email"
                 leftIcon={<Feather name="lock" size={24} color={primary} />}
             />
             <Input
