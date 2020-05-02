@@ -3,16 +3,19 @@ import { View } from 'react-native'
 import { Button, Input } from "react-native-elements"
 import { connect } from "react-redux"
 import { signOut } from "../redux/action"
+import Notification from "../component/Notification"
 
 const Settings = ({ auth, signOut, navigation }) => {
-    if(auth.email === "") {
+    const handleSignOut = () => {
+        signOut()
         navigation.navigate("auth")
     }
     return (
         <View style={{ margin: 15 }}>
             <Input containerStyle={{ padding: 15 }} title="Email" value={auth.email} disabled />
-            <Button containerStyle={{ padding: 15 }} title="Logout" onPress={signOut} />
+            <Button containerStyle={{ padding: 15 }} title="Logout" onPress={handleSignOut} />
             <Button containerStyle={{ padding: 15 }} title="logging" onPress={() => console.log(auth)} />
+            <Notification />
         </View>
     )
 }
