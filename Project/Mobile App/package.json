@@ -6,7 +6,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "serve": "git add -A && git commit -m 'Tweeks' && git push"
+    "commit": "git add -A && git commit -m 'Tweeks' && git push"
   },
   "dependencies": {
     "expo": "~37.0.3",
