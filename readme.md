@@ -1,21 +1,19 @@
-# CBSD_Assignment
+# Assignments
 
-## Assignment 2
+- [Assignment 2: Basic To Do list & Navigation](https://youtu.be/9LsmXv_9lHE)]
+- [Assignment 3: Weird Calculator](https://youtu.be/II612P5QtVA)]
+- [Assignment 4: DB with AsyncStorage](https://www.youtube.com/watch?v=a1qJlegYT5M)]
+- [Assignment 5: DB with AsyncStorage & Navigation](https://www.youtube.com/watch?v=fVZJS9lDnj8&feature=share)]
 
-[![Watch the video](Assignment 2)](https://youtu.be/9LsmXv_9lHE)]
+# Final Project
 
-## Assignment 3
+[OCR, optical character recognition](https://www.youtube.com/watch?v=r5vCWRAZjX0&feature=youtu.be)]
 
-[![Watch the video](Assignment 3)](https://youtu.be/II612P5QtVA)]
+Mobile App
+- React Native
+- Firebase Authentication 
+- Camera & Image Picker
 
-## Assignment 4
-
-[![Watch the video](Assignment 4)](https://www.youtube.com/watch?v=a1qJlegYT5M)]
-
-## Assignment 5
-
-[![Watch the video](Assignment 5)](https://www.youtube.com/watch?v=fVZJS9lDnj8&feature=share)]
-
-## Final Porject
-
-[![Watch the video](Final Porject)](https://www.youtube.com/watch?v=r5vCWRAZjX0&feature=youtu.be)]
+Backend
+- Flask
+- pytesseract
