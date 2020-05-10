@@ -11,8 +11,13 @@ const SignIn = ({ refreshToken, error, signIn, signInWithCache, navigation }) =>
 
     useEffect(() => {
         (async () => {
-            const cacheUser = await AsyncStorage.getItem("user")
-            signInWithCache(cacheUser)
+            try {
+                const cacheUser = await AsyncStorage.getItem("user")
+                console.log(`user in cache: ${cacheUser}`)
+                signInWithCache(cacheUser)
+            } catch (err) {
+                console.log("No user in cache")
+            }
         })()
     })
 

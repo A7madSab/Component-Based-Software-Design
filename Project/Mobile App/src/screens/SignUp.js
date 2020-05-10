@@ -10,16 +10,22 @@ import { connect } from "react-redux"
 import { signUp, signInWithCache } from "../redux/action"
 
 const SignUp = ({ signUp, signInWithCache, error, auth, navigation }) => {
-    const [SignUpForm, setSignUpForm] = useState({ name: "", email: "", password: "", error: "" })
+    const [SignUpForm, setSignUpForm] = useState({ name: "", email: "", password: "", age: "", error: "" })
+    console.log("auth.refreshToken", auth.refreshToken)
     if (auth.refreshToken) {
         navigation.navigate("app")
     }
     useEffect(() => {
         (async () => {
-            const cacheUser = await AsyncStorage.getItem("user")
-            signInWithCache(cacheUser)
+            try {
+                const cacheUser = await AsyncStorage.getItem("user")
+                console.log(`user in cache: ${cacheUser}`)
+                signInWithCache(cacheUser)
+            } catch (err) {
+                console.log("No user in cache")
+            }
         })()
-    })
+    }, [])
     return (
         <KeyboardAvoidingView behavior="padding" style={{ marginTop: 35, justifyContent: "center", alignItems: "center" }}>
             <Text h2>Sign Up</Text>
@@ -43,6 +49,16 @@ const SignUp = ({ signUp, signInWithCache, error, auth, navigation }) => {
                 leftIcon={<Feather name="lock" size={24} color={primary} />}
             />
             <Input
+                label="Age"
+                value={SignUpForm.age}
+                onChangeText={newText => setSignUpForm({ ...SignUpForm, age: newText })}
+                inputStyle={{ paddingLeft: 10 }}
+                containerStyle={{ margin: 10 }}
+                placeholder="23"
+                autoCompleteType="email"
+                leftIcon={<Feather name="lock" size={24} color={primary} />}
+            />
+            <Input
                 label="Password"
                 value={SignUpForm.password}
                 onChangeText={newText => setSignUpForm({ ...SignUpForm, password: newText })}
@@ -52,10 +68,9 @@ const SignUp = ({ signUp, signInWithCache, error, auth, navigation }) => {
                 leftIcon={<MaterialCommunityIcons name="email-outline" size={24} color={primary} />}
                 secureTextEntry={true}
             />
-            {error ? <Text>{error}</Text> : null}
+            {error ? <Text style={{ color: "red", fontSize: 12 }}>{error}</Text> : null}
             <Text>{JSON.stringify(auth)}</Text>
             <Button title="Sign Up" onPress={() => signUp(SignUpForm)} containerStyle={{ width: "95%", margin: 15 }} />
-
         </KeyboardAvoidingView>
     )
 }
