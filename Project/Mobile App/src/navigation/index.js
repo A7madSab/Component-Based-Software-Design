@@ -10,6 +10,7 @@ import SignUp from "../screens/SignUp"
 import Settings from "../screens/Settings"
 import Camera from "../screens/Camera"
 import Picker from "../screens/Picker"
+import Map from "../screens/Maps"
 
 import { primary } from "../utils/index"
 
@@ -28,6 +29,24 @@ const AuthNav = createBottomTabNavigator({
     }
 }, {
     initialRouteName: "SignIn"
+})
+
+const MapStack = createStackNavigator({
+    Map: {
+        screen: Map,
+        navigationOptions: ({ navigation }) => {
+            return ({
+                title: "Map",
+                headerLeft: <Feather
+                    onPress={() => navigation.toggleDrawer()}
+                    name="menu"
+                    size={30}
+                    style={{ margin: 15 }}
+                />
+            })
+        },
+        drawerIcon: () => <Feather name="map" size={30} />
+    }
 })
 
 const CameraStack = createStackNavigator({
@@ -78,7 +97,7 @@ const VisionNavigator = createBottomTabNavigator({
         navigationOptions: () => ({
             tabBarIcon: ({ tintColor }) => <Feather name="camera" size={24} color={tintColor} />
         })
-    }
+    },
 }, {
     initialRouteName: "Picker"
 })
@@ -112,9 +131,16 @@ const AppNav = createDrawerNavigator({
         navigationOptions: ({
             drawerIcon: ({ tintColor }) => <FontAwesome name="cog" size={25} color={tintColor} />
         })
+    },
+    Map: {
+        screen: MapStack,
+        navigationOptions: () => ({
+            drawerIcon: ({ tintColor }) => <Feather name="map" size={25} color={tintColor} />
+        })
     }
 }, {
     drawerWidth: 200,
+    initialRouteName: "Map",
     drawerBackgroundColor: primary,
     overlayColor: "rgba(5,5,5,0.5)",
     contentOptions: {
@@ -128,7 +154,7 @@ const Navigation = createSwitchNavigator({
     auth: AuthNav,
     app: AppNav
 }, {
-    initialRouteName: "auth"
+    initialRouteName: "app"
 })
 
 export default createAppContainer(Navigation)
