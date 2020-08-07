@@ -18,8 +18,7 @@ const App = () => {
             },
             android: {
                 color: "blue",
-                sticky: false,
-                
+                sticky: false
             }
         }, {
             time: now

@@ -11,7 +11,7 @@ export const USER_AUTH_ERROR = "USER_AUTH_ERROR"
 export const signUp = signUpUser => async dispatch => {
     try {
         const { user } = await firebase.auth().createUserWithEmailAndPassword(signUpUser.email, signUpUser.password)
-    const signedUpInUser = { id: user.uid, email: signUpUser.email, refreshToken: user.refreshToken, name: signUpUser.name, age: signUpUser.age }
+        const signedUpInUser = { id: user.uid, email: signUpUser.email, refreshToken: user.refreshToken, name: signUpUser.name, age: signUpUser.age }
 
         await AsyncStorage.setItem("user", JSON.stringify(signedUpInUser))
 
